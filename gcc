@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+files=$(ls | grep -E "^[0-9][0-8]?-binary.+\.c")
+main="18-main.c"
+name="18-uncle"
+gcc -Wall -Wextra -Werror -pedantic binary_tree_print.c $main $files -o $name
