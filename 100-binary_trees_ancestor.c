@@ -10,9 +10,14 @@
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 									const binary_tree_t *second)
 {
+	size_t f, s;
+
 	if (!first || !second)
 		return (NULL);
-	/* if both are siblings , return the parent */
+	/* if both are the same node */
+	if (first == second)
+		return ((binary_tree_t *)first);
+	/* if both are siblings, return the parent */
 	if (first->parent == second->parent)
 		return (first->parent);
 	/* if one of them is a parent to the other, return it */
@@ -21,12 +26,18 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	if (second->parent == first)
 		return (second->parent);
 
-	if (binary_tree_depth(first) > binary_tree_depth(second))
+	f = binary_tree_depth(first);
+	s = binary_tree_depth(second);
+	if (f > s)
 	{
 		return (binary_trees_ancestor(first->parent, second));
 	}
-	else
+	else if (f < s)
 	{
 		return (binary_trees_ancestor(first, second->parent));
+	}
+	else
+	{
+		return (binary_trees_ancestor(first->parent, second->parent));
 	}
 }
